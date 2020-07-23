@@ -2,6 +2,8 @@
 
 make a realtime ml application on sage maker with fedb
 
+![arch](/images/arch.png)
+
 ## 下载依赖和数据
 
 下载jar包
@@ -19,6 +21,9 @@ aws s3 cp train_data.snappy.parquet {你的s3目录}
 更新fe.py 里面`fe_input` 变量为 `train_data.snappy.parquet` 在s3上面的路径
 
 
+## 入群交流
+
+![交流群](/images/code.png)
 
 
 

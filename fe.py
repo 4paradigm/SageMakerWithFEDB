@@ -5,7 +5,9 @@
 #
 from fespark.sql import SparkSession
 
+# replace with your s3 path
 fe_input="s3://"
+# replace with your s3 path
 fe_output=""
 spark = SparkSession.builder.appName("Dataframe demo").getOrCreate()
 train = spark.read.parquet(fe_input)
