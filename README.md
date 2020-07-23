@@ -31,6 +31,13 @@ aws s3 cp train_data.snappy.parquet {你的s3目录}
 # 通过spark-submit提交任务到yarn集群
 sh fe.sh
 ```
+执行完成后在输出s3目录看到如下文件
+```
+_SUCCESS
+partxxxxx.csv
+...
+```
+则表示正确产生了特征输出
 
 ## 入群交流
 
