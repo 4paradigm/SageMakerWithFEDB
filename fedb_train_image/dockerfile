@@ -1,0 +1,49 @@
+# Build an image that can do training 
+FROM ubuntu:16.04
+
+MAINTAINER 4paradgim
+
+# Defining some variables used at build time to install Python3
+ARG PYTHON=python3
+ARG PYTHON_PIP=python3-pip
+ARG PIP=pip3
+ARG PYTHON_VERSION=3.6.6
+
+
+RUN apt-get -y update && apt-get install -y --no-install-recommends \
+         wget \
+         python3 \
+         nginx \
+         ca-certificates \
+        #  gcc \
+         python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt update
+RUN apt-get install libgomp1
+
+RUN pip3 --default-timeout=100 install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+
+RUN pip3 --default-timeout=100 install  -i https://pypi.tuna.tsinghua.edu.cn/simple setuptools 
+
+# Installing numpy, pandas, scikit-learn, scipy
+RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple --no-cache --upgrade \
+        numpy \
+        pandas \
+        lightgbm \
+        requests \
+        setuptools \
+        s3fs \
+        sklearn
+
+# Set up the program in the image
+COPY train_dir /opt/program
+COPY train.sh /opt/program
+WORKDIR /opt/program
+
+ENV PYTHONUNBUFFERED=TRUE
+ENV PYTHONDONTWRITEBYTECODE=TRUE
+ENV PATH="/opt/program:${PATH}"
+ 
+
+ENTRYPOINT sh train.sh
